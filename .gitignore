@@ -1,0 +1,110 @@
+# ---------------------------------------------------------------------------
+# GitHub holds code only. Datasets, preprocessed data and trained models live
+# on the shared Google Drive — see the "Data" section of CLAUDE.md for what to
+# pull into each ignored folder after a fresh clone.
+# ---------------------------------------------------------------------------
+
+# --- Datasets ---------------------------------------------------------------
+raw_dataset/*
+!raw_dataset/.gitkeep
+
+# Preprocessed / intermediate data, whatever teammates name it.
+processed*/
+preprocessed*/
+nnUNet_raw/
+nnUNet_preprocessed/
+nnUNet_results/
+peds_work/
+hff_data/
+hff_results/
+predictions/
+
+# --- Model artifacts --------------------------------------------------------
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.hdf5
+*.onnx
+*.safetensors
+
+# --- Medical images ---------------------------------------------------------
+# Ignored everywhere except a small committed fixture folder, so a tiny test
+# case can still be version controlled if we add one later.
+*.nii
+*.nii.gz
+*.mha
+*.mhd
+*.nrrd
+*.dcm
+!tests/fixtures/**/*.nii
+!tests/fixtures/**/*.nii.gz
+
+# Cached probability maps / arrays.
+*.npz
+*.npy
+!tests/fixtures/**/*.npz
+
+# --- Logs and experiment tracking -------------------------------------------
+logs/
+runs/
+wandb/
+lightning_logs/
+events.out.tfevents.*
+*.log
+progress.png
+
+# --- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+conda-env/
+.conda/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# --- Working notes ----------------------------------------------------------
+# The task brief this baseline was built from: the user's own working note,
+# not project code. Kept on disk, kept out of the repo.
+baseline_cleanup_prompt.md
+
+# --- Configuration ----------------------------------------------------------
+# Machine-specific; .env.example is the committed template.
+.env
+!.env.example
+
+# --- MATLAB -----------------------------------------------------------------
+*.asv
+*.mex
+slprj/
+
+# --- OS / editor junk -------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

@@ -1,0 +1,32 @@
+# Force LF endings on everything executable or importable, so a teammate
+# editing on native Windows cannot silently break scripts with CRLF. The team
+# runs native Linux and WSL2; both want LF on disk.
+*.sh   text eol=lf
+*.py   text eol=lf
+*.m    text eol=lf
+
+# Config and docs: normalize in the repo, LF on checkout.
+*.md       text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+*.json     text eol=lf
+*.toml     text eol=lf
+*.cfg      text eol=lf
+*.txt      text eol=lf
+.env.example text eol=lf
+.gitignore   text eol=lf
+.gitattributes text eol=lf
+
+# Binaries git must never touch. The MATLAB MEX files are prebuilt NSCT
+# toolbox binaries; line-ending conversion would corrupt them.
+*.mexa64 binary
+*.mexw64 binary
+*.mexmac binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.pth    binary
+*.pt     binary
+*.nii    binary
+*.gz     binary

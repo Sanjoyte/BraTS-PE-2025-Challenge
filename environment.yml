@@ -1,0 +1,72 @@
+# Pinned environment for the BraTS-PED 2025 baseline.
+#
+#   conda env create -f environment.yml
+#   conda activate peds_nnunet
+#   pip install -e src/nnUNet-official-new     # must come after; see note below
+#
+# These versions are the ones this baseline was verified running on: a
+# Blackwell RTX 5060 Ti (sm_120) under Linux 6.x, and they work unchanged under
+# WSL2.
+#
+# CUDA note: the torch wheels below are the **cu128** build, pulled from
+# PyTorch's own index. cu128 is required for Blackwell (RTX 50-series, sm_120)
+# and is backward compatible with older supported cards, so one pin covers the
+# whole team. HFF-Net's own requirements.txt asks for torch 2.1.2+cu118 — that
+# build will NOT run on a 50-series card; this file supersedes it.
+#
+# WSL2 note: the NVIDIA driver lives on the **Windows host**. Do not install a
+# Linux NVIDIA driver inside WSL — only the CUDA runtime the wheels bring.
+#
+# numpy is held at 1.x deliberately: torchio 1.2.1 requires it, and torch and
+# nnU-Net were verified working against it.
+
+name: peds_nnunet
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.10
+  - pip
+
+  - pip:
+      # --- CUDA-matched framework build (must resolve from PyTorch's index) ---
+      - --extra-index-url https://download.pytorch.org/whl/cu128
+      - torch==2.11.0+cu128
+      - torchvision==0.26.0+cu128
+      - torchaudio==2.11.0+cu128
+
+      # --- nnU-Net runtime deps -------------------------------------------
+      # nnunetv2 itself is NOT listed here: it must be installed editable from
+      # src/nnUNet-official-new, which carries the authors' -gamma
+      # contribution. A stock `pip install nnunetv2` silently lacks it.
+      - numpy==1.26.4
+      - scipy==1.15.3
+      - scikit-learn==1.7.2
+      - scikit-image==0.25.2
+      - pandas==2.3.3
+      - matplotlib==3.10.9
+      - seaborn==0.13.2
+      - tqdm==4.70.0
+      - nibabel==5.4.2
+      - SimpleITK==2.5.6
+      - batchgenerators==0.25.3
+      - batchgeneratorsv2==0.3.5
+      - dynamic-network-architectures==0.3.1
+      - acvl-utils==0.2.4
+      - connected-components-3d==4.0.0
+      - blosc2==4.3.3
+      - imagecodecs==2025.3.30
+      - tifffile==2025.5.10
+      - graphviz==0.21
+      - yacs==0.1.8
+      - einops==0.8.2
+
+      # --- Swin UNETR member ----------------------------------------------
+      - monai==1.6.0
+
+      # --- HFF-Net member --------------------------------------------------
+      # dtcwt: low-frequency decomposition. The high-frequency (NSCT) half is
+      # MATLAB and cannot be pinned here — see run_commands.md Step 3.2.
+      - dtcwt==0.14.0
+      - torchio==1.2.1
