@@ -69,7 +69,10 @@ HFF-Net itself builds on XNet (Zhou et al., ICCV 2023) and Ganasala et al. (2014
 │   ├── nnUNet-1.7.1/         nnU-Net v1, used only by skull_stripping.
 │   └── HFF/                  Vendored HFF-Net (frequency-domain member).
 ├── .env / .env.example     Machine-specific config (.env is gitignored).
-└── raw_dataset/            BraTS-PED data (gitignored; pull from Drive).
+├── raw_dataset/            BraTS-PED data (gitignored; pull from Drive).
+└── peds_work/              All generated data (gitignored): $nnUNet_raw,
+                            $nnUNet_preprocessed, $nnUNet_results, hff_data,
+                            hff_results, predictions. ~21 GB and growing.
 ```
 
 ## The method (kept, not modified)
@@ -262,9 +265,14 @@ kept** — required by MIT/Apache-2.0 redistribution terms.
   the prebuilt `.mexa64` NSCT binaries as binary.
 - **WSL2:** the NVIDIA driver lives on the **Windows host** — teammates should
   install only the CUDA toolkit/libraries inside WSL, never a separate Linux
-  NVIDIA driver. Keep the dataset and `PEDS_WORK` on the native Linux
-  filesystem (`~/...`), not `/mnt/c/...`, where cross-filesystem I/O is much
-  slower and bottlenecks preprocessing.
+  NVIDIA driver. Keep the repo (and therefore `PEDS_WORK`, which defaults to
+  `${PEDS_ROOT}/peds_work`) on the native Linux filesystem (`~/...`), not
+  `/mnt/c/...`, where cross-filesystem I/O is much slower and bottlenecks
+  preprocessing.
+- **Working data lives in-repo:** `PEDS_WORK` defaults to `${PEDS_ROOT}/peds_work`
+  and is gitignored, so the project is self-contained without anything large
+  reaching git. Note the checkout directory therefore grows to tens of GB —
+  copying/archiving the folder drags `raw_dataset/` and `peds_work/` with it.
 
 ## This machine's constraints
 

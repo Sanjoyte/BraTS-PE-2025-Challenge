@@ -133,9 +133,14 @@ cp .env.example .env
 
 ### 1.2 Edit the paths
 
-Open `.env` and set `PEDS_ROOT` to this repo's absolute path and `PEDS_WORK` to
-a directory on a disk with room to spare (the full dataset needs roughly
-60–100 GB of working space).
+Open `.env` and set **`PEDS_ROOT` to this repo's absolute path** — that is the
+only line most people need to change. `PEDS_WORK` defaults to
+`${PEDS_ROOT}/peds_work`, so all generated data lands inside the repo (and is
+gitignored, so it is never committed).
+
+Budget roughly **60–100 GB** there for the full 257-case dataset. If the disk
+holding the repo is tight, point `PEDS_WORK` at another disk instead — it is the
+only setting that has to move.
 
 ```bash
 ${EDITOR:-nano} .env

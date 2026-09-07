@@ -890,6 +890,8 @@ Verified end-to-end on this machine, memory-capped throughout:
 
 ### Current artifacts on disk
 
+`$PEDS_WORK` defaults to `${PEDS_ROOT}/peds_work` — inside the repo, gitignored.
+
 ```
 $PEDS_WORK/
 ├── nnUNet_raw/            6.6 MB   symlinks, 257 + 91 cases
