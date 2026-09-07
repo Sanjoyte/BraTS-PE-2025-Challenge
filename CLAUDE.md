@@ -78,10 +78,13 @@ Three segmentation models ensembled in probability space:
 
 1. **nnU-Net with adjustable initialization scale.** The authors added a `-gamma`
    flag, persisted into the plans JSON as `std_gamma` and applied at network
-   build time to re-initialize every conv/linear layer as `N(0, fan_in^(-gamma))`
-   (`nnUNetTrainer.init_weights`). Their submission used `gamma = 0.7`. The
-   value is baked into the results folder name and **must be passed again at
-   prediction time**.
+   build time to re-initialize every conv/linear layer as
+   `N(0, weight.size(1)^(-gamma))`, biases zeroed (`nnUNetTrainer.init_weights`).
+   Note `size(1)` is the **input-channel count**, which equals fan-in only for
+   `Linear`; for convolutions it ignores the kernel volume. Their submission used
+   `gamma = 0.7`. The value is baked into the results folder name and **must be
+   passed again at prediction time** — where it only selects the folder, it does
+   not re-initialize anything.
 2. **Swin UNETR with BraTS 2021 transfer learning.** `nnUNetTrainer_Swinunetr`
    swaps nnU-Net's backbone for MONAI `SwinUNETR` (feature_size 48, deep
    supervision off). The `_1005epochs` variant uses 128³ patches (needs
