@@ -107,6 +107,9 @@ Everything above is out of scope for cleanup — it is the baseline being built 
 | All of the above, one command | `runner_ped2025.py` |
 
 Full copy-pasteable commands with dependencies live in **`run_commands.md`**.
+A detailed walkthrough of what each stage does internally — the region contract,
+the `-gamma` mechanics, the HFF frequency pipeline, the ensembling maths — lives
+in **`HOW_IT_WORKS.md`**.
 
 ## Data
 
