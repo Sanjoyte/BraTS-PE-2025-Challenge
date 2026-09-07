@@ -671,7 +671,7 @@ raise `PEDS_MEM_MAX` if the machine actually has spare RAM.
 
 **`nnUNetv2_train: error: unrecognized arguments: -gamma`.**
 Stock nnU-Net is installed instead of the in-repo copy. Redo Step 0.4 and
-re-check with Step 0.6.
+re-check with Step 0.5.
 
 **`nnUNet_raw is not defined`, or paths point somewhere unexpected.**
 You did not `source scripts/peds_env.sh` in this terminal, or a stale
